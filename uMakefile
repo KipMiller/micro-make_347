@@ -1,0 +1,102 @@
+# Set Environment variables 
+# 
+
+CC=  gcc#NOT HERE
+ONE=${TWO}
+TWO= THREE
+
+# Targets 
+#
+
+umake: umake.o arg_parse.o target.o
+	echo IT WORKS #This Should NOT Be Seen
+	gcc -o umake-new umake.o arg_parse.o target.o
+	mv -i umake-new umake
+
+	
+umake.o: umake.c arg_parse.h
+	gcc -c umake.c
+
+arg_parse.o: arg_parse.c arg_parse.h
+	gcc -c arg_parse.c
+
+target.o: 
+	gcc -c target.c
+
+ A   : B C 
+
+	echo Rules for A
+
+B: C 
+
+	echo Rules for B  + '${CC}'
+
+	#echo Also	 Rules    for			 B
+
+	
+C: D 
+
+	echo Rules for C #+ ${ONE}${ONE} + USER = '${USER}'
+
+D: 
+	echo THIS IS D #and '${NOTHERE}' this should be '${ALSONOTHERE}' nothing. USER = '${USER}'
+
+
+	
+install: 
+	cp -p umake ${HOME}/bin/umake
+
+who: 
+	echo The user is ${USER}. But wait, there's more!
+
+	
+test.exe: test.c
+	gcc -o test.exe test.c 
+	echo DONE 
+
+	
+#clean:
+#	rm test.exe
+	
+	
+work:
+	date >> log #1
+	ls -a > files #2
+	wc -l < files #3
+	wc -l < files > line_count #4
+	wc -l < files >> log #5 
+	
+	
+hello: hello.c
+	echo DONE
+	gcc -o hello hello.c
+ 
+hello.c: TEST.c NOTHING_HERE
+	echo Second 
+	touch hello.c
+
+TEST.c: notNewer.c
+	echo LAST
+	touch TEST.c
+
+	
+clean: 
+	rm hello
+	echo CLEANUP
+	
+	
+1: 2 
+	echo touch 1 
+	touch 1 
+
+2: 3 
+	echo touch 2 
+	touch 2 
+	
+3: 
+	echo touch 3 
+	touch 3 
+	
+	
+	
+	
